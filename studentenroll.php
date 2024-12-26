@@ -1,0 +1,19 @@
+<?php
+session_start();
+$conn=mysqli_connect('localhost','root','','registration');
+if(isset($_POST['course_id']))
+{
+    $c_id=$_POST['course_id'];
+    $u_id=$_POST['user_id'];
+    $query="insert into student_enroll set c_id='$c_id',id='$u_id'";
+    $execution=mysqli_query($conn,$query);
+    if($execution)
+ {
+    header('Location:courses.php');
+    exit();
+ }else
+ {
+    header('Location:courses.php');
+ }
+}
+?>

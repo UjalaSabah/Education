@@ -1,0 +1,25 @@
+<?php
+$conn=mysqli_connect('localhost','root','','registration');
+$firstname=$_POST['firstName'];
+$lastname=$_POST['lastName'];
+$email=$_POST['email'];   
+$phone=$_POST['phone']; 
+$subjectspecialization=$_POST['subjectspecialization'];
+$address=$_POST['address'];
+$city=$_POST['city']; 
+$country=$_POST['country'];
+$image_name=$_FILES['image']['name'];
+$image_location=$_FILES['image']['tmp_name'];
+$folder="../images/".$image_name;
+if(move_uploaded_file($image_location,$folder)){
+$query="insert INTO teacher SET t_firstname='$firstname',t_lastname='$lastname',t_email='$email',t_phonenumber='$phone',t_subjectspecialization='$subjectspecialization',t_address='$address', t_city='$city',t_country='$country',image='$folder'";}
+$execution=mysqli_query($conn,$query);
+ if($execution)
+ {
+    header('Location:../teacher_form.php?msg=success');
+    exit();
+ }else
+ {
+    header('Location:../teacher_form.php?msg=failed');
+ }
+?>

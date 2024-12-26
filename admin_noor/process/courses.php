@@ -1,0 +1,19 @@
+<?php
+$conn=mysqli_connect('localhost','root','','registration');
+$coursename=$_POST['coursename'];
+$description=$_POST['description']; 
+$image_name=$_FILES['image']['name'];
+$image_location=$_FILES['image']['tmp_name'];
+$folder="../images/".$image_name;
+if(move_uploaded_file($image_location,$folder)){
+$query="insert INTO courses SET c_name ='$coursename',c_desc='$description',image='$folder'";}
+$execution=mysqli_query($conn,$query);
+ if($execution)
+ {
+    header('Location:../courses.php?msg=success');
+    exit();
+ }else
+ {
+    header('Location:../courses.php?msg=failed');
+ }
+?>
